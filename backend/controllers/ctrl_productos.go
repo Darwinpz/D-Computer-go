@@ -8,32 +8,37 @@ import (
 	
 )
 
+
 func GetProductos(res http.ResponseWriter, req *http.Request){
 
-	var productos [] models.productos
+	var lista_productos [] models.Productos
 
-	obj_producto := new(models.productos)
-	
+	var obj_producto models.Productos
+
 	rows, err := GetDB().Query("SELECT * FROM productos")
-
-	if err != nil {
-		return json.NewEncoder(res).Encode(&models.productos{})
-	}
 	
-	defer rows.Close()
+	if err != nil {
+		
+		json.NewEncoder(res).Encode(lista_productos)
+		
+	}else{
 
-	for rows.Next() {
+		for rows.Next() {
 
-		rows.Scan(
-			&obj_producto.prod_cod,
-			&obj_producto.prod_nombre,
-			&obj_producto.cat_cod
-		)
+			rows.Scan(
+				&obj_producto.Prod_cod,
+				&obj_producto.Prod_nombre,
+				&obj_producto.Cat_cod,	
+			)
+	
+			lista_productos = append(lista_productos, obj_producto)
+		}
 
-		productos = append(productos, obj_producto)
-	}
+		defer rows.Close()
+		
+		json.NewEncoder(res).Encode(lista_productos)
 
-	json.NewEncoder(res).Encode(productos)
+	}	
 
 }
 

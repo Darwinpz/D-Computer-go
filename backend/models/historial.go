@@ -6,11 +6,11 @@ import (
 )
 
 
-type historial struct 
+type Historial struct 
 {
-	history_cod int `json:"history_cod,omitempty"`
-	user_ced string `json:"user_ced,omitempty"`
-	history_actividad string `json:"history_actividad,omitempty"`
-	history_fecha time.Time `json:"history_fecha,omitempty"`
+	History_cod int `json:"history_cod,omitempty"`
+	User_ced string `json:"user_ced,omitempty"`
+	History_actividad string `json:"history_actividad,omitempty"`
+	History_fecha time.Time `json:"history_fecha,omitempty"`
 
 }

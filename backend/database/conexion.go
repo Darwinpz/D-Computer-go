@@ -28,9 +28,11 @@ func init() {
 	dbPort := os.Getenv("db_port")
 
 	dbUri := fmt.Sprintf("%s/%s@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=%s)(PORT=%s)))(CONNECT_DATA=(SID=%s)))", username, password, dbHost, dbPort,dbName)
-	fmt.Println("Conexion Exitosa")
-
+	
 	conn, err := sql.Open("godror", dbUri)
+	
+	fmt.Println("CONEXION ENTRANTE")
+
 	if err != nil {
 		fmt.Println(err)
 		return
