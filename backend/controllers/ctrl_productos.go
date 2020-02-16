@@ -140,3 +140,35 @@ func DelProducto(res http.ResponseWriter, req *http.Request){
 
 	
 }
+
+
+func UpdateProducto(res http.ResponseWriter, req *http.Request){
+
+	params := mux.Vars(req)
+
+	var obj_producto models.Productos
+
+	smt, err := GetDB().Prepare("UPDATE PRODUCTOS SET PROD_NOMBRE =: 1,PROD_PRECIO_COSTO =: 2,PROD_PRECIO_VENTA =: 3,CAT_COD =: 4 WHERE PROD_COD =: 5")
+
+	if err != nil {
+		
+		json.NewEncoder(res).Encode(err)
+		
+	}else{
+
+		_ = json.NewDecoder(req.Body).Decode(&obj_producto)
+
+		_, err := smt.Exec(obj_producto.Prod_nombre,obj_producto.Prod_precio_costo,obj_producto.Prod_precio_venta,obj_producto.Cat_cod,params["id"])
+
+		if err != nil {
+
+			json.NewEncoder(res).Encode(err)
+
+		}else{
+
+			json.NewEncoder(res).Encode("Producto Actualizado")
+
+		}
+
+	}
+}

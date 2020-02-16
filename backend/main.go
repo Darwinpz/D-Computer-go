@@ -18,6 +18,8 @@ func main(){
 	router.HandleFunc("/dcomputer/api/productos/{id}",ctrl.GetProducto).Methods("GET")
 	router.HandleFunc("/dcomputer/api/productos",ctrl.SaveProducto).Methods("POST")
 	router.HandleFunc("/dcomputer/api/productos/{id}",ctrl.DelProducto).Methods("DELETE")
+	router.HandleFunc("/dcomputer/api/productos/{id}",ctrl.UpdateProducto).Methods("PUT")
+
 
 	//facturas
 	router.HandleFunc("/dcomputer/api/facturas",ctrl.GetFacturas).Methods("GET")
