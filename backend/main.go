@@ -1,7 +1,7 @@
 package main
 
 import (
-	ctrl "d-computer/controllers"
+	ctrl "d-computer/backend/controllers"
 	"log"
 	"net/http"
 	"github.com/gorilla/mux"
