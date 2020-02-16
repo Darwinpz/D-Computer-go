@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 	"github.com/joho/godotenv"
-	_"github.com/godror/godror"
+	_ "github.com/godror/godror"
 )
 
 var (
@@ -17,6 +17,7 @@ var (
 func init() {
 
 	e := godotenv.Load() //Load .env file
+
 	if e != nil {
 		fmt.Print(e)
 	}
@@ -28,15 +29,16 @@ func init() {
 	dbPort := os.Getenv("db_port")
 
 	dbUri := fmt.Sprintf("%s/%s@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=%s)(PORT=%s)))(CONNECT_DATA=(SID=%s)))", username, password, dbHost, dbPort,dbName)
-	fmt.Println("Conexion Exitosa")
-
+	
 	conn, err := sql.Open("godror", dbUri)
+	
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	//defer db.Close()
 	db = conn
+
 }
 
 //returns a handle to the DB object
