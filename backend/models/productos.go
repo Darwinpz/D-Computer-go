@@ -3,7 +3,7 @@ package models
 
 type productos struct 
 {
-	cod_producto int `json:"cod_prod,omitempty"`
-	nombre_producto string `json:"nombre_prod,omitempty"`
-	cod_categoria int `json:"cod_categoria,omitempty"`
+	prod_cod int `json:"prod_cod,omitempty"`
+	prod_nombre string `json:"prod_nombre,omitempty"`
+	cat_cod int `json:"cat_cod,omitempty"`
 }

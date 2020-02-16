@@ -3,6 +3,6 @@ package models
 
 type categorias struct 
 {
-	cod_categoria int `json:"cod_categoria,omitempty"`
-	nombre_categoria string `json:"nombre_categoria,omitempty"`
+	cat_cod int `json:"cat_cod,omitempty"`
+	cat_nombre string `json:"cat_nombre,omitempty"`
 }

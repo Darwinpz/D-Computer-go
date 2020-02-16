@@ -6,8 +6,8 @@ import (
 
 type facturas struct 
 {
-	cod_factura int `json:"cod_factura,omitempty"`
-	cod_usuario int `json:"cod_usuario,omitempty"`
-	fecha_factura time.Time `json:"fecha_factura,omitempty"`
-	precio_factura float32 `json:"precio_factura,omitempty"`
+	fact_cod int `json:"fact_cod,omitempty"`
+	user_ced string `json:"user_ced,omitempty"`
+	fact_fecha time.Time `json:"fact_fecha,omitempty"`
+	fact_precio float32 `json:"fact_precio,omitempty"`
 }
