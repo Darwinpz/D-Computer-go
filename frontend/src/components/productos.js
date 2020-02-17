@@ -19,7 +19,7 @@ export default class productos extends Component {
     }
 
     async componentDidMount() {
-        const productos = await axios.get('http://192.168.50.5:4000/dcomputer/api/productos');
+        const productos = await axios.get('http://192.168.10.103:4000/dcomputer/api/productos');
         this.setState({ productos: productos.data })
 
     }
@@ -44,22 +44,28 @@ export default class productos extends Component {
 
                         <div class="col-md-3 mb-2" >
 
+                        {
+                            this.state.productos.map(producto => (
+
                             <div class="card" >
                                 <img src="/imagenes/d-computer.ico" class="img-fluid card-img-top " alt="" />
 
                                 <div class="card-body">
-                                    {
-                                        this.state.productos.map(producto => (
+                                    
                                             <div className="container">
-                                                <p class="text-center mb-1" style={{ fontWeight: "bold" }}>{producto.Prod_nombre}</p>
+                                                <p class="text-center mb-1" style={{ fontWeight: "bold" }}>{producto.prod_nombre}</p>
                                                 <h5 class="text-center mb-2" style={{ color: "green" }}>{producto.Prod_precio_venta}</h5>
                                                 <Link class="btn btn-primary btn-block" to="/:id/verproducto" role="button">Ver producto</Link>
                                             </div>
-                                        ))
-                                    }
+                                        
+                                    
 
                                 </div>
                             </div>
+                            
+                            ))
+
+                        }
 
                         </div>
 

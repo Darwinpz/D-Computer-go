@@ -16,7 +16,7 @@ export default class registrarse extends Component {
         
         e.preventDefault();
 
-        await axios.post('http://192.168.50.5:4000/dcomputer/api/usuarios', {
+        await axios.post('http://192.168.10.103:4000/dcomputer/api/usuarios', {
             User_ced: this.state.User_ced,
             User_nombre: this.state.User_nombre,
             User_correo: this.state.User_correo,
