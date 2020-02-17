@@ -3,6 +3,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 export default class verproducto extends Component {
+
+    state={
+
+    }
+
     render() {
         return (
             <div class="card mb-3 mt-5">

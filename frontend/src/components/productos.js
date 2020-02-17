@@ -1,7 +1,30 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 export default class productos extends Component {
+
+    state = {
+        productos: []
+    }
+
+    onInputChange = (e) => {
+
+        this.setState({
+
+            [e.target.name]: e.target.value
+
+        })
+
+    }
+
+    async componentDidMount() {
+        const productos = await axios.get('http://192.168.50.5:4000/dcomputer/api/productos');
+        this.setState({ productos: productos.data })
+
+    }
+
+
     render() {
         return (
 
@@ -25,9 +48,16 @@ export default class productos extends Component {
                                 <img src="/imagenes/d-computer.ico" class="img-fluid card-img-top " alt="" />
 
                                 <div class="card-body">
-                                    <p class="text-center mb-1" style={{ fontWeight: "bold" }}>Nombre producto</p>
-                                    <h5 class="text-center mb-2" style={{ color: "green" }}>Precio</h5>
-                                    <Link class="btn btn-primary btn-block" to="/:id/verproducto" role="button">Ver producto</Link>
+                                    {
+                                        this.state.productos.map(producto => (
+                                            <div className="container">
+                                                <p class="text-center mb-1" style={{ fontWeight: "bold" }}>{producto.Prod_nombre}</p>
+                                                <h5 class="text-center mb-2" style={{ color: "green" }}>{producto.Prod_precio_venta}</h5>
+                                                <Link class="btn btn-primary btn-block" to="/:id/verproducto" role="button">Ver producto</Link>
+                                            </div>
+                                        ))
+                                    }
+
                                 </div>
                             </div>
 
