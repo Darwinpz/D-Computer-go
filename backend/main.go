@@ -32,6 +32,7 @@ func main(){
 	router.HandleFunc("/dcomputer/api/categorias/{id}",ctrl.GetCategoria).Methods("GET")
 	router.HandleFunc("/dcomputer/api/categorias",ctrl.SaveCategoria).Methods("POST")
 	router.HandleFunc("/dcomputer/api/categorias/{id}",ctrl.DelCategoria).Methods("DELETE")
+	router.HandleFunc("/dcomputer/api/categorias/{id}",ctrl.UpdateCategoria).Methods("PUT")
 
 	//productos_facturas
 	router.HandleFunc("/dcomputer/api/productos_facturas",ctrl.GetProd_Facturas).Methods("GET")

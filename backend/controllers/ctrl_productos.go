@@ -6,7 +6,7 @@ import (
 	"net/http"
 	models "d-computer/backend/models"
 	"github.com/gorilla/mux"
-	//"fmt"
+	
 )
 
 
@@ -19,8 +19,10 @@ func GetProductos(res http.ResponseWriter, req *http.Request){
 	rows, err := GetDB().Query("SELECT * FROM PRODUCTOS")
 	
 	if err != nil {
-		
-		json.NewEncoder(res).Encode(err)
+
+		obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: err.Error()}
+
+		json.NewEncoder(res).Encode(obj_mensaje)
 		
 	}else{
 
@@ -56,7 +58,9 @@ func GetProducto(res http.ResponseWriter, req *http.Request){
 
 	if err != nil {
 		
-		json.NewEncoder(res).Encode(err)
+		obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: err.Error()}
+
+		json.NewEncoder(res).Encode(obj_mensaje)
 		
 	}else{
 
@@ -87,7 +91,9 @@ func SaveProducto(res http.ResponseWriter, req *http.Request){
 
 	if err != nil {
 		
-		json.NewEncoder(res).Encode(err)
+		obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: err.Error()}
+
+		json.NewEncoder(res).Encode(obj_mensaje)
 		
 	}else{
 
@@ -97,11 +103,15 @@ func SaveProducto(res http.ResponseWriter, req *http.Request){
 
 		if err != nil {
 
-			json.NewEncoder(res).Encode(err)
+			obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: err.Error()}
+
+			json.NewEncoder(res).Encode(obj_mensaje)
 
 		}else{
 
-			json.NewEncoder(res).Encode("Producto Guardado")
+			obj_mensaje := models.Mensajes {Tipo:"success", Mensaje:"Producto Guardado"}
+
+			json.NewEncoder(res).Encode(obj_mensaje)
 
 		}
 
@@ -118,8 +128,10 @@ func DelProducto(res http.ResponseWriter, req *http.Request){
 	smt, err := GetDB().Prepare("DELETE FROM PRODUCTOS WHERE PROD_COD =: 1")
 
 	if err != nil {
-		
-		json.NewEncoder(res).Encode(err)
+
+		obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: err.Error()}
+
+		json.NewEncoder(res).Encode(obj_mensaje)
 		
 	}else{
 
@@ -127,11 +139,15 @@ func DelProducto(res http.ResponseWriter, req *http.Request){
 		
 		if err != nil {
 
-			json.NewEncoder(res).Encode(err)
+			obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: err.Error()}
+
+			json.NewEncoder(res).Encode(obj_mensaje)
 
 		}else{
 
-			json.NewEncoder(res).Encode("Producto Eliminado")
+			obj_mensaje := models.Mensajes {Tipo:"success", Mensaje:"Producto Eliminado"}
+
+			json.NewEncoder(res).Encode(obj_mensaje)
 
 		}
 
@@ -152,7 +168,9 @@ func UpdateProducto(res http.ResponseWriter, req *http.Request){
 
 	if err != nil {
 		
-		json.NewEncoder(res).Encode(err)
+		obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: err.Error()}
+
+		json.NewEncoder(res).Encode(obj_mensaje)
 		
 	}else{
 
@@ -162,11 +180,15 @@ func UpdateProducto(res http.ResponseWriter, req *http.Request){
 
 		if err != nil {
 
-			json.NewEncoder(res).Encode(err)
+			obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: err.Error()}
+
+			json.NewEncoder(res).Encode(obj_mensaje)
 
 		}else{
 
-			json.NewEncoder(res).Encode("Producto Actualizado")
+			obj_mensaje := models.Mensajes {Tipo:"success", Mensaje:"Producto Actualizado"}
+
+			json.NewEncoder(res).Encode(obj_mensaje)
 
 		}
 
