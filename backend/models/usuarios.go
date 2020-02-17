@@ -8,7 +8,7 @@ import (
 
 type Usuarios struct 
 {
-	User_ced int `json:"user_ced,omitempty"`
+	User_ced string `json:"user_ced,omitempty"`
 	User_nombre string `json:"user_nombre,omitempty"`
 	User_correo string `json:"user_correo"`
 	User_telefono string `json:"user_telefono"`

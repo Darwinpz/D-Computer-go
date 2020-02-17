@@ -42,7 +42,16 @@ func GetProductos(res http.ResponseWriter, req *http.Request){
 
 		defer rows.Close()
 		
-		json.NewEncoder(res).Encode(lista_productos)
+		if len(lista_productos) != 0 {
+
+			json.NewEncoder(res).Encode(lista_productos)
+
+		}else{
+
+			json.NewEncoder(res).Encode(make([]string, 0))
+
+		}
+
 
 	}	
 

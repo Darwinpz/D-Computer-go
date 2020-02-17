@@ -38,8 +38,16 @@ func GetCategorias(res http.ResponseWriter, req *http.Request){
 
 		defer rows.Close()
 		
-		json.NewEncoder(res).Encode(lista_categorias)
+		if len(lista_categorias) != 0 {
 
+			json.NewEncoder(res).Encode(lista_categorias)
+
+		}else{
+
+			json.NewEncoder(res).Encode(make([]string, 0))
+
+		}
+		
 	}	
 
 }
@@ -101,7 +109,7 @@ func SaveCategoria(res http.ResponseWriter, req *http.Request){
 
 		}else{
 
-			obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: "Categoria Guardada"}
+			obj_mensaje := models.Mensajes {Tipo:"success", Mensaje: "Categoria Guardada"}
 
 			json.NewEncoder(res).Encode(obj_mensaje)
 
@@ -135,7 +143,7 @@ func DelCategoria(res http.ResponseWriter, req *http.Request){
 
 		}else{
 
-			obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: "Categoria Eliminada"}
+			obj_mensaje := models.Mensajes {Tipo:"success", Mensaje: "Categoria Eliminada"}
 
 			json.NewEncoder(res).Encode(obj_mensaje)
 
@@ -174,7 +182,7 @@ func UpdateCategoria(res http.ResponseWriter, req *http.Request){
 
 		}else{
 
-			obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: "Categoria Actualizada"}
+			obj_mensaje := models.Mensajes {Tipo:"success", Mensaje: "Categoria Actualizada"}
 
 			json.NewEncoder(res).Encode(obj_mensaje)
 

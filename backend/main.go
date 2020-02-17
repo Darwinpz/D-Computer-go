@@ -45,6 +45,7 @@ func main(){
 	router.HandleFunc("/dcomputer/api/usuarios/{id}",ctrl.GetUsuario).Methods("GET")
 	router.HandleFunc("/dcomputer/api/usuarios",ctrl.SaveUsuario).Methods("POST")
 	router.HandleFunc("/dcomputer/api/usuarios/{id}",ctrl.DelUsuario).Methods("DELETE")
+	router.HandleFunc("/dcomputer/api/usuarios/{id}",ctrl.UpdateUsuario).Methods("PUT")
 
 	//historial
 	router.HandleFunc("/dcomputer/api/historial",ctrl.GetHistoriales).Methods("GET")
