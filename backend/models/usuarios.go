@@ -13,7 +13,7 @@ type Usuarios struct
 	User_correo string `json:"user_correo"`
 	User_telefono string `json:"user_telefono"`
 	User_clave string `json:"user_clave,omitempty"`
-	User_tipo string `json:"user_tipo,omitempty"`
+	Tipo_user_cod int `json:"Tipo_user_cod,omitempty"`
 	User_registro time.Time `json:"user_registro,omitempty"`
 
 }

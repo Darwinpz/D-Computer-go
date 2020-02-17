@@ -42,6 +42,7 @@ func main(){
 
 	//usuarios
 	router.HandleFunc("/dcomputer/api/usuarios",ctrl.GetUsuarios).Methods("GET")
+	router.HandleFunc("/dcomputer/api/usuarios/login",ctrl.LoginUsuario).Methods("POST")
 	router.HandleFunc("/dcomputer/api/usuarios/{id}",ctrl.GetUsuario).Methods("GET")
 	router.HandleFunc("/dcomputer/api/usuarios",ctrl.SaveUsuario).Methods("POST")
 	router.HandleFunc("/dcomputer/api/usuarios/{id}",ctrl.DelUsuario).Methods("DELETE")
@@ -52,12 +53,14 @@ func main(){
 	router.HandleFunc("/dcomputer/api/historial/{id}",ctrl.GetHistorial).Methods("GET")
 	router.HandleFunc("/dcomputer/api/historial",ctrl.SaveHistorial).Methods("POST")
 	router.HandleFunc("/dcomputer/api/historial/{id}",ctrl.DelHistorial).Methods("DELETE")
+	router.HandleFunc("/dcomputer/api/historial/{id}",ctrl.UpdateHistorial).Methods("PUT")
 
 	//tipos_usuarios
-	router.HandleFunc("/dcomputer/api/tipos_usuarios",ctrl.GetTipo_Usuarios).Methods("GET")
-	router.HandleFunc("/dcomputer/api/tipos_usuarios/{id}",ctrl.GetTipo_Usuario).Methods("GET")
-	router.HandleFunc("/dcomputer/api/tipos_usuarios",ctrl.SaveTipo_Usuario).Methods("POST")
-	router.HandleFunc("/dcomputer/api/tipos_usuarios/{id}",ctrl.DelTipo_Usuario).Methods("DELETE")
+	router.HandleFunc("/dcomputer/api/tipo_usuarios",ctrl.GetTipo_Usuarios).Methods("GET")
+	router.HandleFunc("/dcomputer/api/tipo_usuarios/{id}",ctrl.GetTipo_Usuario).Methods("GET")
+	router.HandleFunc("/dcomputer/api/tipo_usuarios",ctrl.SaveTipo_Usuario).Methods("POST")
+	router.HandleFunc("/dcomputer/api/tipo_usuarios/{id}",ctrl.DelTipo_Usuario).Methods("DELETE")
+	router.HandleFunc("/dcomputer/api/tipo_usuarios/{id}",ctrl.UpdateTipo_Usuario).Methods("PUT")
 
 	//asistencia
 	router.HandleFunc("/dcomputer/api/asistencia",ctrl.GetAsistencias).Methods("GET")

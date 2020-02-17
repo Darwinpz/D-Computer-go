@@ -7,7 +7,6 @@ import (
 	"time"
 	models "d-computer/backend/models"
 	"github.com/gorilla/mux"
-
 )
 
 func GetUsuarios(res http.ResponseWriter, req *http.Request){
@@ -34,7 +33,7 @@ func GetUsuarios(res http.ResponseWriter, req *http.Request){
 				&obj_usuario.User_correo,	
 				&obj_usuario.User_telefono,	
 				&obj_usuario.User_clave,
-				&obj_usuario.User_tipo,	
+				&obj_usuario.Tipo_user_cod,	
 				&obj_usuario.User_registro,
 			)
 	
@@ -81,7 +80,7 @@ func GetUsuario(res http.ResponseWriter, req *http.Request){
 				&obj_usuario.User_correo,	
 				&obj_usuario.User_telefono,	
 				&obj_usuario.User_clave,
-				&obj_usuario.User_tipo,	
+				&obj_usuario.Tipo_user_cod,	
 				&obj_usuario.User_registro,
 			)
 
@@ -97,7 +96,7 @@ func SaveUsuario(res http.ResponseWriter, req *http.Request){
 
 	var obj_usuario models.Usuarios
 
-	smt, err := GetDB().Prepare("INSERT INTO USUARIOS (USER_CED,USER_NOMBRE,USER_CORREO,USER_TELEFONO,USER_CLAVE,USER_TIPO,USER_REGISTRO) VALUES(:1,:2,:3,:4,:5,:6,:7)")
+	smt, err := GetDB().Prepare("INSERT INTO USUARIOS (USER_CED,USER_NOMBRE,USER_CORREO,USER_TELEFONO,USER_CLAVE,TIPO_USER_COD,USER_REGISTRO) VALUES(:1,:2,:3,:4,:5,:6,:7)")
 
 	if err != nil {
 		
@@ -111,7 +110,7 @@ func SaveUsuario(res http.ResponseWriter, req *http.Request){
 
 		obj_usuario.User_registro = time.Now().UTC()
 
-		_, err := smt.Exec(obj_usuario.User_ced,obj_usuario.User_nombre,obj_usuario.User_correo,obj_usuario.User_telefono,obj_usuario.User_clave,obj_usuario.User_tipo,obj_usuario.User_registro)
+		_, err := smt.Exec(obj_usuario.User_ced,obj_usuario.User_nombre,obj_usuario.User_correo,obj_usuario.User_telefono,obj_usuario.User_clave,obj_usuario.Tipo_user_cod,obj_usuario.User_registro)
 
 		if err != nil {
 
@@ -174,7 +173,7 @@ func UpdateUsuario(res http.ResponseWriter, req *http.Request){
 
 	var obj_usuario models.Usuarios
 
-	smt, err := GetDB().Prepare("UPDATE USUARIOS SET USER_CED =: 1,USER_NOMBRE =: 2,USER_CORREO =: 3,USER_TELEFONO =: 4,USER_CLAVE =: 5,USER_TIPO =: 6 WHERE USER_CED =: 7")
+	smt, err := GetDB().Prepare("UPDATE USUARIOS SET USER_CED =: 1,USER_NOMBRE =: 2,USER_CORREO =: 3,USER_TELEFONO =: 4,USER_CLAVE =: 5,TIPO_USER_COD =: 6 WHERE USER_CED =: 7")
 
 	if err != nil {
 		
@@ -186,7 +185,7 @@ func UpdateUsuario(res http.ResponseWriter, req *http.Request){
 
 		_ = json.NewDecoder(req.Body).Decode(&obj_usuario)
 
-		_, err := smt.Exec(obj_usuario.User_ced,obj_usuario.User_nombre,obj_usuario.User_correo,obj_usuario.User_telefono,obj_usuario.User_clave,obj_usuario.User_tipo,params["id"])
+		_, err := smt.Exec(obj_usuario.User_ced,obj_usuario.User_nombre,obj_usuario.User_correo,obj_usuario.User_telefono,obj_usuario.User_clave,obj_usuario.Tipo_user_cod,params["id"])
 
 		if err != nil {
 
@@ -203,5 +202,57 @@ func UpdateUsuario(res http.ResponseWriter, req *http.Request){
 		}
 
 	}
+
+}
+
+
+func LoginUsuario(res http.ResponseWriter, req *http.Request){
+
+	var obj_usuario models.Usuarios
+
+	var obj_login models.Usuarios
+
+	_ = json.NewDecoder(req.Body).Decode(&obj_login)
+
+	rows, err := GetDB().Query("SELECT * FROM USUARIOS where USER_CORREO =: 1",obj_login.User_correo)
+
+	if err != nil {
+		
+		obj_mensaje := models.Mensajes {Tipo:"error", Mensaje: err.Error()}
+
+		json.NewEncoder(res).Encode(obj_mensaje)
+		
+	}else{
+
+		for rows.Next() {
+
+			rows.Scan(
+				&obj_usuario.User_ced,
+				&obj_usuario.User_nombre,
+				&obj_usuario.User_correo,	
+				&obj_usuario.User_telefono,	
+				&obj_usuario.User_clave,
+				&obj_usuario.Tipo_user_cod,	
+				&obj_usuario.User_registro,
+			)
+
+		}
+
+
+		if obj_usuario.User_clave == obj_login.User_clave {
+
+			json.NewEncoder(res).Encode(obj_usuario)
+
+		}else{
+
+			obj_mensaje := models.Mensajes {Tipo:"error", Mensaje:"Entrada no autorizada"}
+
+			json.NewEncoder(res).Encode(obj_mensaje)
+
+		}
+		
+		
+	}
+
 
 }

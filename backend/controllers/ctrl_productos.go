@@ -31,6 +31,8 @@ func GetProductos(res http.ResponseWriter, req *http.Request){
 			rows.Scan(
 				&obj_producto.Prod_cod,
 				&obj_producto.Prod_nombre,
+				&obj_producto.Prod_cantidad,
+				&obj_producto.Prod_descripcion,
 				&obj_producto.Prod_precio_costo,	
 				&obj_producto.Prod_precio_venta,	
 				&obj_producto.Cat_cod,	
@@ -78,6 +80,8 @@ func GetProducto(res http.ResponseWriter, req *http.Request){
 			rows.Scan(
 				&obj_producto.Prod_cod,
 				&obj_producto.Prod_nombre,
+				&obj_producto.Prod_cantidad,
+				&obj_producto.Prod_descripcion,
 				&obj_producto.Prod_precio_costo,	
 				&obj_producto.Prod_precio_venta,	
 				&obj_producto.Cat_cod,	
@@ -96,7 +100,7 @@ func SaveProducto(res http.ResponseWriter, req *http.Request){
 	
 	var obj_producto models.Productos
 
-	smt, err := GetDB().Prepare("INSERT INTO PRODUCTOS (PROD_NOMBRE,PROD_PRECIO_COSTO,PROD_PRECIO_VENTA,CAT_COD) VALUES(:1,:2,:3,:4)")
+	smt, err := GetDB().Prepare("INSERT INTO PRODUCTOS (PROD_NOMBRE,PROD_CANTIDAD,PROD_DESCRIPCION,PROD_PRECIO_COSTO,PROD_PRECIO_VENTA,CAT_COD) VALUES(:1,:2,:3,:4,:5,:6)")
 
 	if err != nil {
 		
@@ -108,7 +112,7 @@ func SaveProducto(res http.ResponseWriter, req *http.Request){
 
 		_ = json.NewDecoder(req.Body).Decode(&obj_producto)
 
-		_, err := smt.Exec(obj_producto.Prod_nombre,obj_producto.Prod_precio_costo,obj_producto.Prod_precio_venta,obj_producto.Cat_cod)
+		_, err := smt.Exec(obj_producto.Prod_nombre,obj_producto.Prod_cantidad,obj_producto.Prod_descripcion,obj_producto.Prod_precio_costo,obj_producto.Prod_precio_venta,obj_producto.Cat_cod)
 
 		if err != nil {
 
@@ -173,7 +177,7 @@ func UpdateProducto(res http.ResponseWriter, req *http.Request){
 
 	var obj_producto models.Productos
 
-	smt, err := GetDB().Prepare("UPDATE PRODUCTOS SET PROD_NOMBRE =: 1,PROD_PRECIO_COSTO =: 2,PROD_PRECIO_VENTA =: 3,CAT_COD =: 4 WHERE PROD_COD =: 5")
+	smt, err := GetDB().Prepare("UPDATE PRODUCTOS SET PROD_NOMBRE =: 1,PROD_CANTIDAD =:2,PROD_DESCRIPCION =:3,PROD_PRECIO_COSTO =: 4,PROD_PRECIO_VENTA =: 5,CAT_COD =: 6 WHERE PROD_COD =: 7")
 
 	if err != nil {
 		
@@ -185,7 +189,7 @@ func UpdateProducto(res http.ResponseWriter, req *http.Request){
 
 		_ = json.NewDecoder(req.Body).Decode(&obj_producto)
 
-		_, err := smt.Exec(obj_producto.Prod_nombre,obj_producto.Prod_precio_costo,obj_producto.Prod_precio_venta,obj_producto.Cat_cod,params["id"])
+		_, err := smt.Exec(obj_producto.Prod_nombre,obj_producto.Prod_cantidad,obj_producto.Prod_descripcion,obj_producto.Prod_precio_costo,obj_producto.Prod_precio_venta,obj_producto.Cat_cod,params["id"])
 
 		if err != nil {
 

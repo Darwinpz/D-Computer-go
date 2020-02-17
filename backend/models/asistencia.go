@@ -13,5 +13,4 @@ type Asistencia struct
 	Asist_fecha_in time.Time `json:"asist_fecha_in"`
 	Asist_fecha_out time.Time `json:"asist_fecha_out"`
 	
-
 }
